@@ -2,7 +2,6 @@ package tfc.orangelighting.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.function.Function;
 
@@ -10,20 +9,11 @@ public class MixinHandler {
 	private static class Color {
 		public int value;
 		
-		public Color(int r, int g, int b) {
-			this(r, g, b, 255);
-		}
-		
 		public Color(int r, int g, int b, int a) {
 			value = ((a & 0xFF) << 24) |
 					((r & 0xFF) << 16) |
 					((g & 0xFF) << 8) |
 					((b & 0xFF));
-		}
-		
-		public Color(int rgba, boolean hasalpha) {
-			if (hasalpha) value = rgba;
-			else value = 0xff000000 | rgba;
 		}
 		
 		public Color(int rgb) {
