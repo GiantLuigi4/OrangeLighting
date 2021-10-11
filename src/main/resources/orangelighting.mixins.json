@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "tfc.orangelighting.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "LightmapTextureManagerMixin",
+    "TextureMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

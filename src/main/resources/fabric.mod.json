@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "orangelighting",
+  "version": "${version}",
+  "name": "OrangeLighting",
+  "description": "A mod which modifies the lightmap, to make block lighting a bit more orange than white",
+  "authors": [
+    "GiantLuigi4"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/orangelighting/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "tfc.orangelighting.client.OrangeLightingClient"
+    ]
+  },
+  "mixins": [
+    "orangelighting.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.1",
+    "minecraft": "1.17.1"
+  }
+}
