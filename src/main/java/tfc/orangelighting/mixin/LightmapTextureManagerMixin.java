@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tfc.orangelighting.client.MixinHandler;
+import tfc.orangelighting.client.OrangeLightingClient;
 
 @Mixin(value = LightmapTextureManager.class, priority = 20000)
 public abstract class LightmapTextureManagerMixin {
@@ -27,6 +28,7 @@ public abstract class LightmapTextureManagerMixin {
 	
 	@Inject(at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/texture/NativeImageBackedTexture;upload()V"), method = "update")
 	public void preUpdate(float delta, CallbackInfo ci) {
+		if (!OrangeLightingClient.config.getAsJsonPrimitive("enabled").getAsBoolean()) return;
 		for (int x = 0; x < 16; x++) {
 			for (int y = 0; y < 16; y++) {
 				image.setColor(x, y, MixinHandler.modifyLight(
