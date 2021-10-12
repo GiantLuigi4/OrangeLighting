@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "orangelighting",
-  "version": "${version}",
+  "version": "1.1",
   "name": "OrangeLighting",
   "description": "A mod which modifies the lightmap, to make block lighting a bit more orange than white",
   "authors": [

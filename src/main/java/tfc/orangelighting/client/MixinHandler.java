@@ -54,7 +54,7 @@ public class MixinHandler {
 		float sky = brightnessGetter.apply(x);
 //		float block = brightnessGetter.apply(x);
 		float f = clientWorld.method_23783(1.0F);
-//		if (((Integer) x).intValue() == 0) return;
+		if (x == 0) return v;
 		if (clientWorld.getLightningTicksLeft() > 0) f = 1f;
 		else f = f * 0.95F + 0.05F;
 //		float actualSky = sky;
