@@ -1,9 +1,6 @@
 package tfc.orangelighting.client;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -66,7 +63,40 @@ public class OrangeLightingClient implements ClientModInitializer {
 		config = loadConfig();
 		if (!config.has("enabled")) config.addProperty("enabled", true);
 		if (!config.has("modify_gamma")) config.addProperty("modify_gamma", false);
-		saveConfig();
+		if (!config.has("mn_skyBrightnessDivisorMultiplier"))
+			config.addProperty("mn_skyBrightnessDivisorMultiplier", 5);
+		if (!config.has("gammaDivisor")) config.addProperty("gammaDivisor", 3);
+		if (!new File("config/orangelighting.json").exists()) saveConfig();
+		// these are not saved on first boot for precision reasons
+		if (!config.has("color_a")) {
+			JsonObject object = new JsonObject();
+//			object.addProperty("r", 0.9);
+//			object.addProperty("g", 1.1);
+//			object.addProperty("b", 1.35);
+
+//			object.addProperty("r", 0.9);
+//			object.addProperty("g", 1.1);
+//			object.addProperty("b", 1.4);
+
+//			object.addProperty("r", 0.609375);
+//			object.addProperty("g", 0.78125);
+//			object.addProperty("b", 1.0);
+			
+			object.addProperty("r", 0.7265625);
+			object.addProperty("g", 0.9453125);
+			object.addProperty("b", 1.21875);
+			if (!config.has("color_a")) config.add("color_a", object);
+		}
+		if (!config.has("color_b")) {
+			JsonObject object = new JsonObject();
+			object.addProperty("r", 2.4);
+//			object.addProperty("r", 0.890625);
+			object.addProperty("g", 2.4);
+//			object.addProperty("g", 0.890625);
+			object.addProperty("b", 2.6);
+//			object.addProperty("b", 1.0);
+			if (!config.has("color_b")) config.add("color_b", object);
+		}
 	}
 	
 	public static JsonObject loadConfig() {
@@ -90,6 +120,33 @@ public class OrangeLightingClient implements ClientModInitializer {
 		object.addProperty("enabled", true);
 		object.addProperty("modify_gamma", true);
 		return object;
+	}
+	
+	public static int getColorA() {
+		double r = getColorValue("a", "r", 0.9);
+		double g = getColorValue("a", "g", 1.1);
+		double b = getColorValue("a", "b", 1.35);
+		
+		return new MixinHandler.Color((int) (b * 128), (int) (g * 128), (int) (r * 128), 0).getRGB();
+	}
+	
+	public static int getColorB() {
+		double r = getColorValue("b", "r", 2.4);
+		double g = getColorValue("b", "g", 2.4);
+		double b = getColorValue("b", "b", 2.6);
+		
+		return new MixinHandler.Color((int) (b * 64), (int) (g * 64), (int) (r * 64), 0).getRGB();
+	}
+	
+	private static double getColorValue(String element, String channel, double defaultVale) {
+		JsonElement element1 = OrangeLightingClient.config.get("color_" + element);
+		if (element1 instanceof JsonObject) {
+			if (((JsonObject) element1).has(channel)) {
+				JsonPrimitive r = ((JsonObject) element1).getAsJsonPrimitive(channel);
+				return r.getAsDouble();
+			}
+		}
+		return defaultVale;
 	}
 	
 	@Override

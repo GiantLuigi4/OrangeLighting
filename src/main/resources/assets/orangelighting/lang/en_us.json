@@ -1,5 +1,10 @@
 {
   "config.title.orangelighting": "Orange Lighting Config",
   "config.orangelighting.enable": "Enabled",
-  "config.orangelighting.modify_gamma": "Modify Gamma"
+  "config.orangelighting.modify_gamma": "Modify Gamma",
+  "config.orangelighting.gamma_divisor": "Gamma Divisor",
+  "config.orangelighting.blo": "Block Light Only",
+  "config.orangelighting.color_mul_a": "Primary Color Multiplier",
+  "config.orangelighting.color_mul_b": "Secondary Color Multiplier",
+  "config.orangelighting.brighter": "The higher your brightness is, the whiter your should make this.\nBy default, this is setup for moody.\nFor bright brightness, use white or #ffffff."
 }
