@@ -83,7 +83,8 @@ public class MixinHandler {
 		mul /= 1.1;
 		
 		if (y != 0)
-			mul /= (actualSky * OrangeLightingClient.config.getAsJsonPrimitive("mn_skyBrightnessDivisorMultiplier").getAsDouble());
+//			mul /= (0.5 * OrangeLightingClient.config.getAsJsonPrimitive("mn_skyBrightnessDivisorMultiplier").getAsDouble());
+			mul /= OrangeLightingClient.config.getAsJsonPrimitive("mn_skyBrightnessDivisorMultiplier").getAsDouble() * (((int) ((actualSky + 0.2) * 255)) / 255d);
 //		mul += (gamma / 1);
 //		mul /= 2;
 //		mul = 1 - mul;
